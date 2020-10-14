@@ -62,7 +62,7 @@
             .back{
                 width: 100%;
                 height: 100%;
-                background-image: url(./cards/Red_back.jpg);
+                background-image: url(./cards/0.jpg);
                 background-size: contain;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -183,25 +183,26 @@
         <script src="./jquery-3.5.1.min.js"></script>
         <script>
             let checkPoint = 2;
-            let order = 0;
-            function createCards(checkPoint){
-                let totalCard = Math.pow(checkPoint,2)
-                for(let i=0;i<checkPoint;i++){
+            let bg = 0;
+            function createCards(row){
+                let order = 0;
+                let totalCard = Math.pow(row,2)
+                for(let i=0;i<row;i++){
                     $('#cards').append(`
                     <div class='card close'>
                         <div class='back'></div>
                         <div class='front'></div>
                         </div>
                         `)
-                        
                     let num = order % Math.round(totalCard/2) + 1
+                    $('.back').css('background-image',`url(./cards/${bg}.jpg)`)
                     $('.card')
                     .eq(order)
                     .find('.front')
                     .css('background-image',`url(./cards/${num}S.jpg)`)
                     $('.card').eq(order).attr('data-num',`${num}`)
                     order++
-                    for(let j=0;j<checkPoint-1;j++){
+                    for(let j=0;j<row-1;j++){
                         $('#cards').append(`
                         <div class='card close'>
                             <div class='back'></div>
@@ -209,6 +210,7 @@
                             </div>
                             `)
                     let num2 = order % Math.round(totalCard/2) + 1
+                    $('.back').css('background-image',`url(./cards/${bg}.jpg)`)
                     $('.card')
                     .eq(order)
                     .find('.front')
@@ -219,15 +221,16 @@
                     const target = Math.floor(Math.random()*totalCard)
                     $('.card').eq(target).insertAfter($('.card').eq(order-1))
                 }
-                for(let k=checkPoint-1;k<totalCard;k+=checkPoint){
+                for(let k=row-1;k<totalCard;k+=row){
                     $(`<div class='block'></div>`).insertAfter($('.card').eq(k))
                 }
+                bg++
             }
-            function next(checkPoints){
-                checkPoint++
-
+            function next(){
+                $('#next').css('display','none')
+                checkPoint+=2
+                createCards(checkPoint)
             }
-            
                 $('#cards').on('click','.card',function(){
                     if($('.card:not(.close)').length < 2){
                         $(this).removeClass('close')
@@ -236,13 +239,17 @@
                         if(
                         $('.card:not(.close)').eq(0).attr('data-num') === 
                         $('.card:not(.close)').eq(1).attr('data-num')){
-                            $('.card:not(.close)').fadeTo(800,0).addClass('clear')
+                            $('.card:not(.close)').fadeTo(500,0).addClass('clear')
                         }
+                        setTimeout(()=>{
+                        $('.card:not(.close.clear)').addClass('close')
+                        },600)
                     }
-                    setTimeout(()=>{
-                        $('.card:not(.close)').addClass('close')
-                    },1500)
-                    if($('.clear').length === $('.card').length){
+                    
+                    if($('.clear').length === Math.pow(checkPoint,2)){
+                        setTimeout(()=>{
+                        $('#cards').empty()
+                        },1000)
                         setTimeout(() => {
                             console.log('win');
                         $('#next').css('display','flex')
@@ -251,9 +258,10 @@
                 })
             
             $('#btn_start').on('click',function(){
-                createCards(2)
+                createCards(checkPoint)
                 $('#btn_start').attr('disabled',true)
             })
+            $('#btn_next').on('click',next)
         </script>
     </body>
 </html>
