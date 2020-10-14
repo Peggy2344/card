@@ -4,19 +4,38 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
         <style>
             html,body{
                 height: 100%;
+                width: 100%;
             }
             body{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                background: #fcf0ec;
+                margin: 0;
+            }
+            #container{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
             }
             #record_area{
                 height: 80px;
+                width: 100%;
+                background: #1973a1;
+                padding: 10px;
+                line-height: 80px;
+                display: flex;
+                justify-content:space-around;
+
             }
             #game_area{
+                margin-top: 100px;
                 height: 500px;
                 width: 500px;
                 margin:auto;
@@ -26,7 +45,7 @@
                 align-items: center;
             }
             .card{
-                width: 60px;
+                width: 80px;
                 height: 100px;
                 transform-style: preserve-3d;
                 position: relative;
@@ -57,48 +76,184 @@
             .block{
                 display: block;
             }
+            p{
+                color: #fff;
+                font-family: 'Permanent Marker', cursive;
+                font-size: 3rem;
+                margin: 0 50px;
+                display: inline-block;
+            }
+            span{
+                margin-left: 20px;
+            }
+            #btn_start{
+                border: none;
+                border-radius: 40px;
+                background: tomato;
+                color: rgb(83, 58, 58);
+                font-family: 'Permanent Marker', cursive;
+                width: 80px;
+                height: 80px;
+                margin: auto;
+                font-size: 1.5rem;
+                box-shadow: 5px 5px 5px #333;
+                cursor: pointer;
+            }
+            #btn_start:active{
+                box-shadow: none;
+                position: relative;
+                top: 0.2em;
+            }
+            #btn_start:focus{
+                outline: none;
+            }
+            #start{
+                height: 100%;
+                flex: 2;
+            }
+            #lev{
+                flex:0.5;
+            }
+            #sc{
+                flex:1.5;
+            }
+            #ti{
+                flex: 0.5;
+            }
+            #next{
+                border: 5px solid #5e6472;
+                border-radius: 20px;
+                background: #fff;
+                width: 300px;
+                height: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            #congra{
+                font-size: 2rem;
+                margin: 0;
+                color: #ff9f1c;
+            }
+            #nextBar{
+                height: 50%;
+                width: 50%;
+                position: relative;
+            }
+            #btn_next{
+                position: absolute;
+                bottom: 0;
+                left: 15%;
+                border: none;
+                border-radius: 10px;
+                background: #1a535c;
+                color:#fff;
+                width: 100px;
+                height: 50px;
+                margin: auto;
+                font-size: 1.5rem;
+                box-shadow: 5px 5px 5px #333;
+                cursor: pointer;
+                font-family: 'Permanent Marker', cursive;
+            }
+            #btn_next:focus{
+                outline: none;
+            }
+            #btn_next:active{
+                bottom: -0.2rem;
+            }
         </style>
     </head>
     <body>
         <div id="container">
-            <div id="record_area"></div>
+            <div id="record_area">
+                <p id='lev'>LEVEL<span id='level'>1</span></p>
+                <p id="sc">score<span id='score'>0</span></p>
+                <div id="start"><button id='btn_start'>start</button></div>
+                <p id="ti">time<span id='time'>30</span></p>
+            </div>
+            <div id="next">
+                <div><p id="congra">Congratulations</p></div>
+                <div id="nextBar"><button id="btn_next">Next</button></div>
+            </div>
             <div id="game_area">
                 <div id="cards"></div>
             </div>
-        </div>
+        </>
         <script src="./jquery-3.5.1.min.js"></script>
         <script>
-            let checkPoint = 3;
+            let checkPoint = 2;
             let order = 0;
-            let totalCard = Math.pow(checkPoint,2)
-            for(let i=0;i<checkPoint;i++){
-                $('#cards').append(`
-                <div class='card'>
-                    <div class='back'></div>
-                    <div class='front'></div>
-                </div>
-                `)
-                const num = i % checkPoint + 1
-                $('.card')
+            function createCards(checkPoint){
+                let totalCard = Math.pow(checkPoint,2)
+                for(let i=0;i<checkPoint;i++){
+                    $('#cards').append(`
+                    <div class='card close'>
+                        <div class='back'></div>
+                        <div class='front'></div>
+                        </div>
+                        `)
+                        
+                    let num = order % Math.round(totalCard/2) + 1
+                    $('.card')
                     .eq(order)
                     .find('.front')
                     .css('background-image',`url(./cards/${num}S.jpg)`)
-                order++
-                for(let j=0;j<checkPoint-1;j++){
-                    $('#cards').append(`
-                <div class='card'>
-                    <div class='back'></div>
-                    <div class='front'></div>
-                </div>
-                `)
-                $('.card')
-                .eq(order)
-                .find('.front')
-                .css('background-image',`url(./cards/${num}S.jpg)`)
-                order++
+                    $('.card').eq(order).attr('data-num',`${num}`)
+                    order++
+                    for(let j=0;j<checkPoint-1;j++){
+                        $('#cards').append(`
+                        <div class='card close'>
+                            <div class='back'></div>
+                            <div class='front'></div>
+                            </div>
+                            `)
+                    let num2 = order % Math.round(totalCard/2) + 1
+                    $('.card')
+                    .eq(order)
+                    .find('.front')
+                    .css('background-image',`url(./cards/${num2}S.jpg)`)
+                    $('.card').eq(order).attr('data-num',`${num2}`)
+                    order++
+                }
+                    const target = Math.floor(Math.random()*totalCard)
+                    $('.card').eq(target).insertAfter($('.card').eq(order-1))
+                }
+                for(let k=checkPoint-1;k<totalCard;k+=checkPoint){
+                    $(`<div class='block'></div>`).insertAfter($('.card').eq(k))
+                }
             }
-            $('#cards').append(`<div class='block'></div>`)
+            function next(checkPoints){
+                checkPoint++
+
             }
+            
+                $('#cards').on('click','.card',function(){
+                    if($('.card:not(.close)').length < 2){
+                        $(this).removeClass('close')
+                    }
+                    if($('.card:not(.close)').length === 2){
+                        if(
+                        $('.card:not(.close)').eq(0).attr('data-num') === 
+                        $('.card:not(.close)').eq(1).attr('data-num')){
+                            $('.card:not(.close)').fadeTo(800,0).addClass('clear')
+                        }
+                    }
+                    setTimeout(()=>{
+                        $('.card:not(.close)').addClass('close')
+                    },1500)
+                    if($('.clear').length === totalCard){
+                        setTimeout(() => {
+                        alert('過關')
+                    }, 1000)
+                    }
+                })
+            
+            $('#btn_start').on('click',function(){
+                createCards(2)
+                $('#btn_start').attr('disabled',true)
+            })
         </script>
     </body>
 </html>
