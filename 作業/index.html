@@ -8,7 +8,6 @@
         <style>
             html,body{
                 height: 100%;
-                width: 100%;
             }
             body{
                 display: flex;
@@ -18,7 +17,7 @@
                 margin: 0;
             }
             #container{
-                width: 100%;
+                width: 99%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -32,7 +31,7 @@
                 line-height: 80px;
                 display: flex;
                 justify-content:space-around;
-
+                margin-bottom: 100px;
             }
             #game_area{
                 margin-top: 100px;
@@ -126,7 +125,7 @@
                 background: #fff;
                 width: 300px;
                 height: 300px;
-                display: flex;
+                display: none;
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
@@ -243,10 +242,11 @@
                     setTimeout(()=>{
                         $('.card:not(.close)').addClass('close')
                     },1500)
-                    if($('.clear').length === totalCard){
+                    if($('.clear').length === $('.card').length){
                         setTimeout(() => {
-                        alert('過關')
-                    }, 1000)
+                            console.log('win');
+                        $('#next').css('display','flex')
+                    }, 2000)
                     }
                 })
             
