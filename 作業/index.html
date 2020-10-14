@@ -54,25 +54,50 @@
             .close{
                 transform: rotateY(180deg);
             }
+            .block{
+                display: block;
+            }
         </style>
     </head>
     <body>
         <div id="container">
             <div id="record_area"></div>
-            <div id="game_area"></div>
+            <div id="game_area">
+                <div id="cards"></div>
+            </div>
         </div>
         <script src="./jquery-3.5.1.min.js"></script>
         <script>
-            let checkPoint = 2;
+            let checkPoint = 3;
+            let order = 0;
             let totalCard = Math.pow(checkPoint,2)
-            for(let i=0;i<totalCard;i++){
-                $('#game_area').append(`
+            for(let i=0;i<checkPoint;i++){
+                $('#cards').append(`
                 <div class='card'>
-                    <div class='front'>
-                    <div class='back'>
+                    <div class='back'></div>
+                    <div class='front'></div>
                 </div>
                 `)
-                const num = 
+                const num = i % checkPoint + 1
+                $('.card')
+                    .eq(order)
+                    .find('.front')
+                    .css('background-image',`url(./cards/${num}S.jpg)`)
+                order++
+                for(let j=0;j<checkPoint-1;j++){
+                    $('#cards').append(`
+                <div class='card'>
+                    <div class='back'></div>
+                    <div class='front'></div>
+                </div>
+                `)
+                $('.card')
+                .eq(order)
+                .find('.front')
+                .css('background-image',`url(./cards/${num}S.jpg)`)
+                order++
+            }
+            $('#cards').append(`<div class='block'></div>`)
             }
         </script>
     </body>
