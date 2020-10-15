@@ -5,175 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-        <style>
-            html,body{
-                height: 100%;
-            }
-            body{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                background: #fcf0ec;
-                margin: 0;
-            }
-            #container{
-                width: 99%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-            }
-            #record_area{
-                height: 80px;
-                width: 100%;
-                background: #1973a1;
-                padding: 10px;
-                line-height: 80px;
-                display: flex;
-                justify-content:space-around;
-                margin-bottom: 100px;
-            }
-            #game_area{
-                margin-top: 100px;
-                height: 500px;
-                width: 500px;
-                margin:auto;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: center;
-            }
-            .card{
-                width: 80px;
-                height: 100px;
-                transform-style: preserve-3d;
-                position: relative;
-                transition: all 0.3s;
-                display: inline-block;
-            }
-            .front{
-                width: 100%;
-                height: 100%;
-                background-size: contain;
-                background-position: center;
-                background-repeat: no-repeat;
-                position: absolute;
-            }
-            .back{
-                width: 100%;
-                height: 100%;
-                background-image: url(./cards/1.jpg);
-                background-size: contain;
-                background-position: center;
-                background-repeat: no-repeat;
-                position: absolute;
-                transform: rotateY(180deg);
-            }
-            .close{
-                transform: rotateY(180deg);
-            }
-            .block{
-                display: block;
-            }
-            p{
-                color: #fff;
-                font-family: 'Permanent Marker', cursive;
-                font-size: 3rem;
-                margin: 0 50px;
-                display: inline-block;
-            }
-            span{
-                margin-left: 20px;
-            }
-            #btn_start{
-                border: none;
-                border-radius: 40px;
-                background: tomato;
-                color: rgb(83, 58, 58);
-                font-family: 'Permanent Marker', cursive;
-                width: 80px;
-                height: 80px;
-                margin: auto;
-                font-size: 1.5rem;
-                box-shadow: 5px 5px 5px #333;
-                cursor: pointer;
-            }
-            #btn_start:active{
-                box-shadow: none;
-                position: relative;
-                top: 0.2em;
-            }
-            #btn_start:focus{
-                outline: none;
-            }
-            #start{
-                height: 100%;
-                flex: 2;
-            }
-            #lev{
-                flex:0.5;
-            }
-            #sc{
-                flex:1.5;
-            }
-            #ti{
-                flex: 0.5;
-            }
-            #next{
-                border: 5px solid #5e6472;
-                border-radius: 20px;
-                background: #fff;
-                width: 300px;
-                height: 300px;
-                display: none;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-            }
-            #congra{
-                font-size: 2rem;
-                margin: 0;
-                color: #ff9f1c;
-            }
-            #nextBar{
-                height: 50%;
-                width: 50%;
-                position: relative;
-            }
-            #btn_next{
-                position: absolute;
-                bottom: 0;
-                left: 15%;
-                border: none;
-                border-radius: 10px;
-                background: #1a535c;
-                color:#fff;
-                width: 100px;
-                height: 50px;
-                margin: auto;
-                font-size: 1.5rem;
-                box-shadow: 5px 5px 5px #333;
-                cursor: pointer;
-                font-family: 'Permanent Marker', cursive;
-            }
-            #btn_next:focus{
-                outline: none;
-            }
-            #btn_next:active{
-                bottom: -0.2rem;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div id="container">
             <div id="record_area">
                 <p id='lev'>LEVEL<span id='level'>1</span></p>
-                <p id="sc">score<span id='score'>0</span></p>
+                <p id="sc">score<span class='score'>0</span></p>
                 <div id="start"><button id='btn_start'>start</button></div>
                 <p id="ti">time<span id='time'>30</span></p>
             </div>
             <div id="next">
-                <div><p id="congra">Congratulations</p></div>
+
+                <div><p id="congra">PERFECT</p></div>
+                <div><p id="level_score">your score:</p><p class='score'>0</p></div>
                 <div id="nextBar"><button id="btn_next">Next</button></div>
             </div>
             <div id="game_area">
@@ -188,7 +33,7 @@
             function createCards(row){
                 let order = 0;
                 let totalCard = checkPoint % 2 === 0 ? Math.pow(row,2) : Math.pow(row,2)-1
-                for(let i=0;i<row;i++){
+                for(let i=0;i<totalCard;i++){
                     $('#cards').append(`
                     <div class='card close'>
                         <div class='back'></div>
@@ -203,29 +48,9 @@
                     .css('background-image',`url(./cards/${num}S.jpg)`)
                     $('.card').eq(order).attr('data-num',`${num}`)
                     order++
-                    for(let j=0;j<row-1;j++){
-                        $('#cards').append(`
-                        <div class='card close'>
-                            <div class='back'></div>
-                            <div class='front'></div>
-                            </div>
-                            `)
-                    let num2 = order % Math.round(totalCard/2) + 1
-                    $('.back').css('background-image',`url(./cards/${bg}.jpg)`)
-                    $('.card')
-                    .eq(order)
-                    .find('.front')
-                    .css('background-image',`url(./cards/${num2}S.jpg)`)
-                    $('.card').eq(order).attr('data-num',`${num2}`)
-                    order++
-                }
                     const target = Math.floor(Math.random()*totalCard)
                     $('.card').eq(target).insertAfter($('.card').eq(order-1))
                 }
-                // $(`<div class='card close'>
-                //             <div class='back'></div>
-                //             <div class='front'></div>
-                //             </div>`)
                 for(let k=row-1;k<totalCard;k+=row){
                     $(`<div class='block'></div>`).insertAfter($('.card').eq(k))
                 }
@@ -233,36 +58,36 @@
             }
             function next(){
                 $('#next').css('display','none')
-                checkPoint+=2
+                checkPoint++
                 createCards(checkPoint)
                 level++
                 $('#level').text(level)
             }
-                $('#cards').on('click','.card',function(){
-                    if($('.card:not(.close)').length < 2){
-                        $(this).removeClass('close')
+            $('#cards').on('click','.card',function(){
+                if($('.card:not(.close)').length < 2){
+                    $(this).removeClass('close')
+                }
+                if($('.card:not(.close)').length === 2){
+                    if(
+                    $('.card:not(.close)').eq(0).attr('data-num') === 
+                    $('.card:not(.close)').eq(1).attr('data-num')){
+                        $('.card:not(.close)').fadeTo(500,0).addClass('clear')
                     }
-                    if($('.card:not(.close)').length === 2){
-                        if(
-                        $('.card:not(.close)').eq(0).attr('data-num') === 
-                        $('.card:not(.close)').eq(1).attr('data-num')){
-                            $('.card:not(.close)').fadeTo(500,0).addClass('clear')
-                        }
-                        setTimeout(()=>{
-                        $('.card:not(.close.clear)').addClass('close')
-                        },600)
-                    }
-                    
-                    if($('.clear').length === Math.pow(checkPoint,2)){
-                        setTimeout(()=>{
-                        $('#cards').empty()
-                        },1000)
-                        setTimeout(() => {
-                            console.log('win');
-                        $('#next').css('display','flex')
-                    }, 2000)
-                    }
-                })
+                    setTimeout(()=>{
+                    $('.card:not(.close.clear)').addClass('close')
+                    },600)
+                }
+                
+                if($('.clear').length === $('.card').length){
+                    setTimeout(()=>{
+                    $('#cards').empty()
+                    },1000)
+                    setTimeout(() => {
+                        console.log('win');
+                    $('#next').css('display','flex')
+                }, 2000)
+                }
+            })
             
             $('#btn_start').on('click',function(){
                 createCards(checkPoint)
