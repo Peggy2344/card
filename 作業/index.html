@@ -24,12 +24,13 @@
             <div id="game_area">
                 <div id="cards"></div>
             </div>
-        </>
+        </div>
         <script src="./jquery-3.5.1.min.js"></script>
         <script>
             let checkPoint = 2;
             let level = 1;
             let bg = 1;
+            let now =null;
             function createCards(row){
                 let order = 0;
                 let totalCard = checkPoint % 2 === 0 ? Math.pow(row,2) : Math.pow(row,2)-1
@@ -63,10 +64,10 @@
                 level++
                 $('#level').text(level)
             }
-            $('#cards').on('click','.card',function(){
+            function clickHanlder(){
                 if($('.card:not(.close)').length < 2){
                     $(this).removeClass('close')
-                }
+                }else return
                 if($('.card:not(.close)').length === 2){
                     if(
                     $('.card:not(.close)').eq(0).attr('data-num') === 
@@ -76,23 +77,23 @@
                     setTimeout(()=>{
                     $('.card:not(.close.clear)').addClass('close')
                     },600)
-                }
+                }else return
                 
                 if($('.clear').length === $('.card').length){
                     setTimeout(()=>{
                     $('#cards').empty()
                     },1000)
                     setTimeout(() => {
-                        console.log('win');
                     $('#next').css('display','flex')
                 }, 2000)
                 }
-            })
-            
-            $('#btn_start').on('click',function(){
+            }
+            function start(){
                 createCards(checkPoint)
                 $('#btn_start').attr('disabled',true)
-            })
+            }
+            $('#cards').on('click','.card',clickHanlder)
+            $('#btn_start').on('click',start)
             $('#btn_next').on('click',next)
         </script>
     </body>
