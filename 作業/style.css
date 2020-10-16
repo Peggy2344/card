@@ -1,102 +1,102 @@
 html,
 body {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fcf0ec;
-  margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fcf0ec;
+    margin: 0;
 }
 #container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 #record_area {
-  height: 80px;
-  width: 100%;
-  background: #1973a1;
-  padding: 10px;
-  line-height: 80px;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 100px;
+    height: 80px;
+    width: 100%;
+    background: #1973a1;
+    padding: 10px;
+    line-height: 80px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 100px;
 }
 #game_area {
-  margin-top: 100px;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+    width: 60%;
+    margin-top: 100px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 .card {
-  width: 100px;
-  height: 120px;
-  transform-style: preserve-3d;
-  position: relative;
-  transition: all 0.3s;
-  display: inline-block;
+    width: 150px;
+    height: 180px;
+    transform-style: preserve-3d;
+    position: relative;
+    transition: all 0.3s;
+    display: inline-block;
 }
 .front {
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
 }
 .back {
-  width: 100%;
-  height: 100%;
-  background-image: url(./cards/1.jpg);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: absolute;
-  transform: rotateY(180deg);
+    width: 100%;
+    height: 100%;
+    background-image: url(./cards/1.jpg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    transform: rotateY(180deg);
 }
 .close {
-  transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 .block {
-  display: block;
+    display: block;
 }
 p {
-  color: #fff;
-  font-family: "Permanent Marker", cursive;
-  font-size: 3rem;
-  margin: 0;
-  display: inline-block;
+    color: #fff;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3rem;
+    margin: 0;
+    display: inline-block;
 }
 span {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 #btn_start {
-  border: none;
-  border-radius: 40px;
-  background: tomato;
-  color: rgb(83, 58, 58);
-  font-family: "Permanent Marker", cursive;
-  width: 80px;
-  height: 80px;
-  margin: auto;
-  font-size: 1.5rem;
-  box-shadow: 5px 5px 5px #333;
-  cursor: pointer;
+    border: none;
+    border-radius: 40px;
+    background: tomato;
+    color: rgb(83, 58, 58);
+    font-family: 'Permanent Marker', cursive;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    font-size: 1.5rem;
+    box-shadow: 5px 5px 5px #333;
+    cursor: pointer;
 }
 #btn_start:active {
-  box-shadow: none;
-  position: relative;
-  top: 0.2em;
+    box-shadow: none;
+    position: relative;
+    top: 0.2em;
 }
 #btn_start:focus {
-  outline: none;
+    outline: none;
 }
 /* #start {
   height: 100%;
@@ -112,52 +112,59 @@ span {
   flex: 0.5;
 } */
 #next {
-  margin: auto;
-  border: 5px solid #5e6472;
-  border-radius: 20px;
-  background: #fff;
-  width: 300px;
-  height: 300px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+    margin: auto;
+    border: 5px solid #5e6472;
+    border-radius: 20px;
+    background: #fff;
+    width: 300px;
+    height: 300px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 #congra {
-  font-size: 2rem;
-  margin: 0;
-  color: #ff9f1c;
+    font-size: 2rem;
+    margin: 0;
+    color: #ff9f1c;
 }
 #nextBar {
-  height: 50%;
-  width: 50%;
-  position: relative;
+    height: 40%;
+    width: 50%;
+    text-align: center;
+    line-height: 40%;
+    position: relative;
 }
 #btn_next {
-  position: absolute;
-  bottom: 0;
-  left: 15%;
-  border: none;
-  border-radius: 10px;
-  background: #1a535c;
-  color: #fff;
-  width: 100px;
-  height: 50px;
-  margin: auto;
-  font-size: 1.5rem;
-  box-shadow: 5px 5px 5px #333;
-  cursor: pointer;
-  font-family: "Permanent Marker", cursive;
+    position: absolute;
+    bottom: 10%;
+    left: 15%;
+    border: none;
+    border-radius: 10px;
+    background: #1a535c;
+    color: #fff;
+    width: 100px;
+    height: 50px;
+    margin: auto;
+    font-size: 1.5rem;
+    box-shadow: 5px 5px 5px #333;
+    cursor: pointer;
+    font-family: 'Permanent Marker', cursive;
 }
 #btn_next:focus {
-  outline: none;
+    outline: none;
 }
 #btn_next:active {
-  bottom: -0.2rem;
+    top: 4.5rem;
 }
 #level_score {
-  font-family: "Permanent Marker", cursive;
-  color: #1a535c;
-  margin: auto;
-  font-size: 1rem;
+    font-family: 'Permanent Marker', cursive;
+    color: #1a535c;
+    margin: 10px auto;
+    font-size: 1rem;
+}
+#score {
+    color: #1a535c;
+    display: block;
+    text-align: center;
 }
